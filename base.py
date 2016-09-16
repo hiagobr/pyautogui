@@ -23,8 +23,7 @@ def tela_preco_rebate(_usuario_, _senha1_, _senha2_):
     sp = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     # Tab para ativar a janela
-    pyautogui.press('tab')
-    pyautogui.press('tab')
+    pyautogui.keyDown('enter')
 
     # Maximizar GAN
     hwnd = win32gui.GetForegroundWindow()
@@ -51,7 +50,6 @@ def tela_preco_rebate(_usuario_, _senha1_, _senha2_):
     count = 1
     while login2 is None:
         login2 = pyautogui.locateOnScreen('login2.png', region=(57, 313, 284, 167))
-        print "tela segundo login", count, login2
         count += 1
     # Fim
 
@@ -69,20 +67,29 @@ def precificao():
 
 def tela_precos(_sku_, _estado_, _rua_, _copia_p_q_m_):
 
-    # Reconhecimento imagem login 2
+    # Reconhecimento imagem tela_sku
     tela_sku = pyautogui.locateOnScreen('tela_sku.png', region=(14, 38, 297, 674))
     count = 1
     while tela_sku is None:
         tela_sku = pyautogui.locateOnScreen('tela_sku.png', region=(14, 38, 297, 674))
-        print "tela_sku", count, tela_sku
         count += 1
     # Fim
 
     pyautogui.keyDown('enter')
     pyautogui.keyDown('esc')
     pyautogui.keyDown('enter')
+    pyautogui.keyDown('enter')
     pyautogui.typewrite(_sku_)
     pyautogui.keyDown('enter')
+    pyautogui.keyDown('enter')
+
+    # Reconhecimento imagem tela_estado
+    tela_estado = pyautogui.locateOnScreen('tela_estado.png', region=(59, 422, 227, 92))
+    count = 1
+    while tela_estado is None:
+        tela_estado = pyautogui.locateOnScreen('tela_estado.png', region=(59, 422, 227, 92))
+        count += 1
+    # Fim
 
     # Selecionar _estado_
     if _estado_ == "T":
@@ -107,6 +114,14 @@ def tela_precos(_sku_, _estado_, _rua_, _copia_p_q_m_):
         pyautogui.press('down', 9)
 
     pyautogui.keyDown('enter')
+
+    # Reconhecimento imagem tela_rua
+    tela_rua = pyautogui.locateOnScreen('tela_rua.png', region=(499, 318, 360, 63))
+    count = 1
+    while tela_rua is None:
+        tela_rua = pyautogui.locateOnScreen('tela_rua.png', region=(499, 318, 360, 63))
+        count += 1
+    # Fim
 
     if _rua_ == "T":
         pyautogui.keyDown('enter')
@@ -133,8 +148,18 @@ def tela_precos(_sku_, _estado_, _rua_, _copia_p_q_m_):
         pyautogui.keyDown('enter')
         pyautogui.keyDown('esc')
         pyautogui.keyDown('enter')
+        pyautogui.keyDown('enter')
         pyautogui.typewrite(_sku_)
         pyautogui.keyDown('enter')
+        pyautogui.keyDown('enter')
+
+        # Reconhecimento imagem tela_estado
+        tela_estado = pyautogui.locateOnScreen('tela_estado.png', region=(59, 422, 227, 92))
+        count = 1
+        while tela_estado is None:
+            tela_estado = pyautogui.locateOnScreen('tela_estado.png', region=(59, 422, 227, 92))
+            count += 1
+        # Fim
 
         # Selecionar _estado_
         if _estado_ == "T":
@@ -160,6 +185,14 @@ def tela_precos(_sku_, _estado_, _rua_, _copia_p_q_m_):
 
         pyautogui.keyDown('enter')
 
+        # Reconhecimento imagem tela_rua
+        tela_rua = pyautogui.locateOnScreen('tela_rua.png', region=(499, 318, 360, 63))
+        count = 1
+        while tela_rua is None:
+            tela_rua = pyautogui.locateOnScreen('tela_rua.png', region=(499, 318, 360, 63))
+            count += 1
+        # Fim
+
         if _rua_ == "T":
             pyautogui.keyDown('enter')
             pyautogui.typewrite(_copia_p_q_m_)
@@ -173,6 +206,7 @@ def tela_precos(_sku_, _estado_, _rua_, _copia_p_q_m_):
         elif _rua_ == "Q":
             pyautogui.press('down', 3)
             pyautogui.keyDown('enter')
+
     else:
         pass
 
@@ -180,6 +214,7 @@ def tela_precos(_sku_, _estado_, _rua_, _copia_p_q_m_):
 def verificar_negativo():
     negativos = pyautogui.locateOnScreen('negativo.png', region=(802, 71, 243, 644))
 
+    time.sleep(1)
     if negativos is not None:
         pyautogui.keyDown('enter')
 
@@ -192,14 +227,37 @@ def etiqueta(condicao, preco):
     pyautogui.typewrite(preco)
     pyautogui.keyDown('enter')
     pyautogui.keyDown('enter')
-    time.sleep(1)
 
     verificar_negativo()
 
-    time.sleep(1)
-    pyautogui.click(1000, 308, 3)
-    evidencia_etiqueta = pyperclip.paste()
-    evidencias["etiqueta"] = evidencia_etiqueta
+    # Reconhecimento imagem login 2
+    fim_etiqueta = pyautogui.locateOnScreen('fim_etiqueta.png', region=(226, 292, 94, 30))
+    count = 1
+    while fim_etiqueta is None:
+        fim_etiqueta = pyautogui.locateOnScreen('fim_etiqueta.png', region=(226, 292, 94, 30))
+        count += 1
+    # Fim
+
+
+def zerar_promocao():
+    # Precificar Etiqueta
+    pyautogui.keyDown('P')
+    pyautogui.typewrite('75')
+    pyautogui.keyDown('enter')
+    pyautogui.typewrite('311217')
+    pyautogui.keyDown('enter')
+    pyautogui.typewrite('311217')
+    pyautogui.keyDown('enter')
+    pyautogui.typewrite('0')
+    pyautogui.keyDown('enter')
+
+    # Reconhecimento imagem login 2
+    fim_promo = pyautogui.locateOnScreen('fim_promo.png', region=(85, 206, 107, 28))
+    count = 1
+    while fim_promo is None:
+        fim_promo = pyautogui.locateOnScreen('fim_promo.png', region=(85, 206, 107, 28))
+        count += 1
+    # Fim
 
 
 def promocao(condicao, preco, _inicial_, _final_):
@@ -217,25 +275,13 @@ def promocao(condicao, preco, _inicial_, _final_):
 
     verificar_negativo()
 
-    pyautogui.click(209, 220, 3)
-    evidencia_promo = pyperclip.paste()
-    evidencias["promo"] = evidencia_promo
-
-
-def zerar_promocao():
-    # Precificar Etiqueta
-    pyautogui.keyDown('P')
-    pyautogui.typewrite('75')
-    pyautogui.keyDown('enter')
-    pyautogui.typewrite('311217')
-    pyautogui.keyDown('enter')
-    pyautogui.typewrite('311217')
-    pyautogui.keyDown('enter')
-    pyautogui.typewrite('0')
-    pyautogui.keyDown('enter')
-    pyautogui.click(209, 220, 3)
-    evidencia_promo2 = pyperclip.paste()
-    evidencias["promo2"] = evidencia_promo2
+    # Reconhecimento imagem login 2
+    fim_promo = pyautogui.locateOnScreen('fim_promo.png', region=(85, 206, 107, 28))
+    count = 1
+    while fim_promo is None:
+        fim_promo = pyautogui.locateOnScreen('fim_promo.png', region=(85, 206, 107, 28))
+        count += 1
+        # Fim
 
 
 def zerar_fixar():
@@ -244,9 +290,14 @@ def zerar_fixar():
     pyautogui.keyDown('enter')
     pyautogui.keyDown('0')
     pyautogui.keyDown('enter')
-    pyautogui.click(885, 278, 3)
-    evidencia_fixar = pyperclip.paste()
-    evidencias["fixar"] = evidencia_fixar
+
+    # Reconhecimento imagem login 2
+    fim_fixar = pyautogui.locateOnScreen('fim_fixar.png', region=(95, 259, 53, 39))
+    count = 1
+    while fim_fixar is None:
+        fim_fixar = pyautogui.locateOnScreen('fim_fixar.png', region=(95, 259, 53, 39))
+        count += 1
+    # Fim
 
 
 def fixar(valor1, valor2):
@@ -258,14 +309,37 @@ def fixar(valor1, valor2):
 
     verificar_negativo()
 
+    # Reconhecimento imagem login 2
+    fim_fixar = pyautogui.locateOnScreen('fim_fixar.png', region=(95, 259, 53, 39))
+    count = 1
+    while fim_fixar is None:
+        fim_fixar = pyautogui.locateOnScreen('fim_fixar.png', region=(95, 259, 53, 39))
+        count += 1
+        # Fim
+
+
+def evidencias():
+
+    # Promocao
+    pyautogui.click(209, 220, 3)
+    evidencia_promo_aux = pyperclip.paste()
+
+    # Fixar
     pyautogui.click(885, 278, 3)
-    evidencia_fixar = pyperclip.paste()
-    evidencias["fixar"] = evidencia_fixar
+    evidencia_fixar_aux = pyperclip.paste()
+
+    # Etiqueta
+    pyautogui.click(1000, 308, 3)
+    evidencia_etiqueta_aux = pyperclip.paste()
+
+    return evidencia_promo_aux, evidencia_fixar_aux, evidencia_etiqueta_aux
 
 if __name__ == "__main__":
 
+    startTime = time.time()
+
     # Abrir arquivo
-    df = abrir_arquivo("template_preco_backup.xlsx")
+    df = abrir_arquivo("template_preco.xlsx")
 
     # Abrir GAN e entrar na tela de precificacao e rebate
     usuario = "hiagobr"
@@ -277,7 +351,12 @@ if __name__ == "__main__":
     precificao()
 
     # Dicionario de evidencias
-    evidencias = {}
+    sku_teste = 'teste'
+    fixar_teste = 'teste'
+    promocao_teste = 'teste'
+    etiqueta_teste = 'etiqueta'
+    df_evidencias = pd.DataFrame([[sku_teste, fixar_teste, promocao_teste, etiqueta_teste]],
+                                 columns=['sku', 'promocao', 'fixar', 'etiqueta'])
 
     # Variaveis
     for index, row in df.iterrows():
@@ -290,8 +369,8 @@ if __name__ == "__main__":
         etiqueta_valor = str(row['etiqueta_valor'])
         promo_condicao = str(row['promo_condicao'])
         promo_valor = str(row['promo_valor'])
-        inicial = str(row['inicial']).replace("i-", "")
-        final = str(row['inicial']).replace("f-", "")
+        inicial = str(row['inicial']).replace("i-", "   ")
+        final = str(row['final']).replace("f-", "")
         fixar1 = str(row['fixar1'])
         fixar2 = str(row['fixar2'])
         print sku, estado, rua, copia_p_q_m, etiqueta_condicao, etiqueta_valor, promo_condicao, promo_valor,
@@ -299,20 +378,79 @@ if __name__ == "__main__":
 
         # Funcoes
         tela_precos(sku, estado, rua, copia_p_q_m)
+
+        tela_sem_custo = pyautogui.locateOnScreen('custo_reposicao.png', region=(300, 316, 723, 67))
         time.sleep(1)
 
-        fixar(fixar1, fixar2)
-        time.sleep(1)
+        if tela_sem_custo is None:
+            zerar_fixar()
+            time.sleep(0.5)
 
-        etiqueta(etiqueta_condicao, etiqueta_valor)
-        time.sleep(1)
+            # fixar(fixar1, fixar2)
+            # time.sleep(0.5)
 
-        zerar_promocao()
-        time.sleep(1)
+            etiqueta(etiqueta_condicao, etiqueta_valor)
+            time.sleep(0.5)
 
-        pyautogui.keyDown('esc')
+            promocao(promo_condicao, promo_valor, inicial, final)
+            time.sleep(0.5)
 
-    with open('evidencias.  csv', 'wb') as f:
-        w = csv.writer(f)
-        w.writerow(evidencias.keys())
+            # zerar_promocao()
+            # time.sleep(0.5)
+
+            # -----------------------------------Evidencias-----------------------------------
+            evidencia_promo, evidencia_fixar, evidencia_etiqueta = evidencias()
+
+            df_evidencias_temp = pd.DataFrame([[sku, evidencia_promo, evidencia_fixar, evidencia_etiqueta]],
+                                              columns=['sku', 'promocao', 'fixar', 'etiqueta'])
+            df_evidencias = df_evidencias.append(df_evidencias_temp, ignore_index=True)
+
+            # Sair da tela de precificacao
+
+            time.sleep(0.5)
+
+            pyautogui.keyDown('esc')
+
+        else:
+            pyautogui.keyDown('enter')
+
+            df_evidencias_temp = pd.DataFrame([[sku, 'sem custo de reposicao', 'sem custo de reposicao',
+                                                's'
+                                                'em custo de reposicao']],
+                                              columns=['sku', 'promocao'
+                                                              'o', 'fixar', 'etiqueta'])
+            df_evidencias = df_evidencias.append(df_evidencias_temp, ignore_index=True)
+
+    df_evidencias = df_evidencias[df_evidencias['sku'] != 'teste']
+    df_evidencias.to_excel('evidencias.xlsx')
+
+    endTime = time.time()
+
+    tempo = endTime - startTime
+    tempo_sku = tempo/len(df)
+
+    print "Tempo total: ", tempo
+    print tempo_sku
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
